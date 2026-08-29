@@ -208,5 +208,3 @@ This is intentionally a small study project rather than a production RAG applica
 Complete study project demonstrating an end-to-end local RAG pipeline and Docker containerization.
 
 **PDF → OCR → Chunking → Embeddings → ChromaDB → Semantic Retrieval → Ollama → LLM Response**
-
-The project is intentionally kept simple to demonstrate the underlying RAG and containerization concepts rather than production features.
