@@ -314,7 +314,7 @@ The first mount provides the PDF from the Windows host:
 
 ```text
 Windows
-C:\GitHubProjects\smart-document\test_data
+C:\smart-document\test_data
         ↓
 Container
 /app/test_data
