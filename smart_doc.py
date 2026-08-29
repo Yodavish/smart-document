@@ -10,11 +10,13 @@ from sentence_transformers import SentenceTransformer
 import chromadb
 import ollama
 
+ollama_client = ollama.Client(
+    host="http://host.docker.internal:11434"
+)
+
 client = chromadb.PersistentClient(
     path="./chroma_db"
 )
-
-pytesseract.pytesseract.tesseract_cmd = (r"C:\Program Files\Tesseract-OCR\tesseract.exe")
 
 class DocumentProcessor:
     def __init__(self, filename):
@@ -112,7 +114,7 @@ class DocumentProcessor:
 
         Answer only from the provided context. If the answer is not in the context, say you don't know.
         """
-        response = ollama.chat(
+        response = ollama_client.chat(
             model="gpt-oss:20b",
             messages=[
                 {
