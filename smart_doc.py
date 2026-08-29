@@ -14,9 +14,7 @@ client = chromadb.PersistentClient(
     path="./chroma_db"
 )
 
-pytesseract.pytesseract.tesseract_cmd = (
-    r"C:\Program Files\Tesseract-OCR\tesseract.exe"
-)
+pytesseract.pytesseract.tesseract_cmd = (r"C:\Program Files\Tesseract-OCR\tesseract.exe")
 
 class DocumentProcessor:
     def __init__(self, filename):
@@ -30,13 +28,6 @@ class DocumentProcessor:
 
     def open_documents(self):
         self.document = pymupdf.open(self.filename)
-
-    def preprocess_image(self, image):
-        # grayscale
-        # threshold
-        # deskew
-        # noise removal
-        return image
         
     def extract_pages(self):
         extracted_text = []
@@ -56,16 +47,8 @@ class DocumentProcessor:
 
         self.page_text = extracted_text
 
-    def clean_ocr_text(self, text):
-        # fix OCR artifacts
-        # normalize whitespace
-        # repair broken lines
-        return text
-
     def perform_ocr(self, image):
-        image = self.preprocess_image(image)
         text = pytesseract.image_to_string(image)
-        text = self.clean_ocr_text(text)
         return text
 
     def chunk_text(self):
@@ -77,8 +60,7 @@ class DocumentProcessor:
         documents = splitter.create_documents(
             self.page_text,
             metadatas=[
-                {"page": page_number + 1}
-                for page_number in range(len(self.page_text))
+                {"page": page_number + 1} for page_number in range(len(self.page_text))
             ]
         )
 
@@ -94,24 +76,13 @@ class DocumentProcessor:
         return embeddings
 
     def store_embeddings(self, embeddings):
-        collection = client.get_or_create_collection(
-            name="documents"
-        )
+        collection = client.get_or_create_collection(name="documents")
 
-        documents = [
-            chunk.page_content
-            for chunk in self.chunks
-        ]
+        documents = [chunk.page_content for chunk in self.chunks]
 
-        metadatas = [
-            chunk.metadata
-            for chunk in self.chunks
-        ]
+        metadatas = [chunk.metadata for chunk in self.chunks]
 
-        ids = [
-            f"chunk_{i}"
-            for i in range(len(self.chunks))
-        ]
+        ids = [f"chunk_{i}" for i in range(len(self.chunks))]
 
         collection.add(
             ids = ids,
@@ -121,34 +92,26 @@ class DocumentProcessor:
         )
 
     def retrieve(self, query, n_results=5):
-        collection = client.get_collection(
-            name = "documents"
-        )
+        collection = client.get_collection(name = "documents")
 
-        query_embedding = self.embedding_model.encode(
-            [query]
-        )
+        query_embedding = self.embedding_model.encode([query])
 
-        results = collection.query(
-            query_embeddings = query_embedding.tolist(),
-            n_results = n_results
-        )
-
+        results = collection.query(query_embeddings = query_embedding.tolist(), n_results = n_results)
+                
         return results
 
     def generate_answer(self, query, context):
         prompt = f"""
-    Use the following context to answer the question.
+        Use the following context to answer the question.
 
-    Context:
-    {context}
+        Context:
+        {context}
 
-    Question:
-    {query}
+        Question:
+        {query}
 
-    Answer only from the provided context. If the answer is not in the context, say you don't know.
-    """
-
+        Answer only from the provided context. If the answer is not in the context, say you don't know.
+        """
         response = ollama.chat(
             model="gpt-oss:20b",
             messages=[
@@ -163,9 +126,7 @@ class DocumentProcessor:
 
 def main():
 
-    doc = DocumentProcessor(
-        "test_data/Questioned_documents.pdf"
-    )
+    doc = DocumentProcessor("test_data/Questioned_documents.pdf")
 
     doc.open_documents()
     doc.extract_pages()
@@ -174,17 +135,12 @@ def main():
     embeddings = doc.embed_chunks()
     doc.store_embeddings(embeddings)
 
-    print(f"Pages: {len(doc.page_text)}")
-    print(f"Chunks: {len(doc.chunks)}")
-    print(f"Embeddings: {len(embeddings)}")
-    print(f"Vector dimensions: {len(embeddings[0])}")
-
     ask_ollama(doc)
 
 def ask_ollama(doc):
     while True:
         try:
-            query = input("\nHow may I help you? ")
+            query = input("\nHow may I help you?: ")
 
             if query.lower() in {"exit", "quit"}:
                 break
@@ -193,15 +149,8 @@ def ask_ollama(doc):
                 continue
             
             results = doc.retrieve(query)
-
-            context = "\n\n".join(
-                results["documents"][0]
-            )
-
-            answer = doc.generate_answer(
-                query,
-                context
-            )
+            context = "\n\n".join(results["documents"][0])
+            answer = doc.generate_answer(query, context)
 
             print("\n--- Answer ---")
             print(answer)
@@ -209,6 +158,5 @@ def ask_ollama(doc):
         except EOFError:
             break
     
-
 if __name__ == "__main__":
     main()
