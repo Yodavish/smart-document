@@ -1,0 +1,191 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+    color: #222;
+}
+
+/* Header */
+header {
+    height: 60px;
+    padding: 0 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #ffffff;
+    border-bottom: 1px solid #ddd;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 22px;
+}
+
+header button {
+    padding: 8px 14px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    background-color: #ffffff;
+    cursor: pointer;
+}
+
+header button:hover {
+    background-color: #f0f0f0;
+}
+
+/* Main Layout */
+main {
+    display: grid;
+    grid-template-columns: 60% 40%;
+    height: calc(100vh - 60px);
+}
+
+/* Chat */
+.chat-container {
+    display: flex;
+    flex-direction: column;
+    background-color: #ffffff;
+    border-right: 1px solid #ddd;
+}
+
+.chat-header {
+    padding: 16px 20px;
+    border-bottom: 1px solid #ddd;
+}
+
+.chat-header h2 {
+    margin: 0;
+    font-size: 18px;
+}
+
+.chat-messages {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+}
+
+.message {
+    max-width: 70%;
+    margin-bottom: 12px;
+    padding: 10px 14px;
+    border-radius: 10px;
+    line-height: 1.4;
+    white-space: pre-wrap;
+}
+
+.message.incoming {
+    background-color: #eeeeee;
+}
+
+/* Chat Input */
+.chat-input-area {
+    display: flex;
+    gap: 10px;
+    padding: 16px;
+    border-top: 1px solid #ddd;
+}
+
+.chat-input-area textarea {
+    width: 100%;
+    padding: 12px;
+    resize: none;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 14px;
+}
+
+.chat-input-area textarea {
+    flex: 1;
+    width: auto;
+    padding: 12px;
+    resize: none;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 14px;
+}
+
+.chat-input-area textarea:focus {
+    outline: none;
+    border-color: #777;
+}
+
+/* Retrieval */
+.retrieval-container {
+    display: flex;
+    flex-direction: column;
+    background-color: #fafafa;
+}
+
+.retrieval-display {
+    padding: 16px 20px;
+    border-bottom: 1px solid #ddd;
+}
+
+.retrieval-display h2 {
+    margin: 0;
+    font-size: 18px;
+}
+
+.retrieval-table {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+#document-name {
+    color: #777;
+    font-size: 14px;
+}
+/* Messages */
+.message.outgoing {
+    margin-left: auto;
+    background-color: #333;
+    color: white;
+}
+
+
+/* Retrieval cards */
+.retrieval-card {
+    margin-bottom: 12px;
+    padding: 14px;
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+}
+
+.retrieval-card-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    font-size: 13px;
+}
+
+.retrieval-card-header span {
+    color: #777;
+}
+
+.retrieval-card-content {
+    max-height: 180px;
+    overflow-y: auto;
+    font-size: 13px;
+    line-height: 1.5;
+    white-space: pre-wrap;
+}
+
+/* Thinking state */
+.message.thinking {
+    color: #777;
+    font-style: italic;
+}
