@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Smart_Doc</title>
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header>
+        <div class="header-left">
+            <h1>Smart Document</h1>
+            <span id="document-name">No document</span>
+        </div>
+        <button type="button" id="import-button">+ Import</button>
+        <input type="file" id="file-input" accept=".pdf,.txt" hidden>
+    </header>
+
+    <main>
+        <section class="chat-container">
+            <div class="chat-header">
+                <h2>Chat</h2>
+            </div>
+            <div class="chat-messages">
+                <div class="message incoming">
+                    Hello! How can I help you today?
+                </div>
+            </div>
+            <div class="chat-input-area">
+                <textarea id="question-input" rows="2" placeholder="Ask a question..."></textarea>
+            </div>
+        </section>
+
+        <aside class="retrieval-container">
+            <div class="retrieval-display">
+                <h2>Retrieval</h2>
+            </div>
+            <div class="retrieval-table">
+            </div>
+        </aside>
+    </main>
+    <script src="js/app.js"></script>
+</body>
+</html>
