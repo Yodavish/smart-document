@@ -2,7 +2,12 @@
 
 A local Retrieval-Augmented Generation (RAG) application for querying PDF and text documents.
 
+
+
 ## Demo
+
+Used this to get a 584 page "Question Document" Book as my demo but any PDF or large text file would work.
+https://archive.org/download/documequestioned00osborich/documequestioned00osborich.pdf
 
 ![Smart_Doc UI](smart-doc-ui.png)
 
